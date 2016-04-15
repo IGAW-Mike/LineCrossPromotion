@@ -1,13 +1,14 @@
 package com.iga.LineCrossPromotionSampleProj;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.igaworks.adbrix.line.InitCrossPromotionEventListener;
-import com.igaworks.adbrix.line.InterstitialEventListener;
+import com.igaworks.adbrix.line.InitInterstitialEventListener;
+import com.igaworks.adbrix.line.ShowInterstitialEventListener;
 import com.igaworks.adpopcorn.v2.core.AdSpotError;
 import com.igaworks.adpopcorn.v2.core.IgawAdSpotListener;
 import com.line.crosspromotion.LineCrossPromotion;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
 
         makeViewComponent();
 
@@ -61,24 +65,14 @@ public class MainActivity extends AppCompatActivity {
         // SET ENCRYPTED LINE USER ID
         LineCrossPromotion.setUserId("INPUT_ENCRYPTED_LINE_USER_ID");
 
-        // INITIALIZE INTERSTITIAL SDK
-        LineCrossPromotion.InitCrossPromotion(MainActivity.this, new InitCrossPromotionEventListener() {
-            @Override
-            public void OnInitSuccess() {
-                // Called when the initialize is succeeded.
-            }
+        // INITIALIZE INTERSTITIAL SDK AND IMPLEMENT InitInterstitialAdListener
+        LineCrossPromotion.initInterstitialAd(MainActivity.this, registerInitInterstitialAdEventListener());
 
-            @Override
-            public void OnInitFail(String errorMsg) {
-                // Called with error messages when the initialize is failed.
-            }
-        });
-
-        // SHOW INTERSTITIAL AD AND IMPLEMENT InterstitialListener
+        // SHOW INTERSTITIAL AD AND IMPLEMENT ShowInterstitialAdListener
         showInterstitialBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LineCrossPromotion.ShowInterstitial(MainActivity.this, "INPUT_YOUR_AD_SPACE_KEY", registerInterstitialEventListener());
+                LineCrossPromotion.showInterstitialAd(MainActivity.this, "INPUT_YOUR_AD_SPACE_KEY", registerInterstitialEventListener());
             }
         });
 
@@ -97,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 LineCrossPromotion.showOfferwall(MainActivity.this, "INPUT_YOUR_AD_SPOT_KEY");
             }
         });
-
 
 
         /**
@@ -125,10 +118,35 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     *   Implementation of Interstitial Event Listener
+     *   Implementation of InitInterstitial EventListener
      **/
-    public InterstitialEventListener registerInterstitialEventListener(){
-        InterstitialEventListener listener = new InterstitialEventListener() {
+    public InitInterstitialEventListener registerInitInterstitialAdEventListener(){
+        InitInterstitialEventListener listener = new InitInterstitialEventListener() {
+            @Override
+            public void OnInitSuccess() {
+                // Called when the initialize is succeeded.
+                logMessage = "InitCrossPromotion InitSuccess";
+                Log.d(LOG_TAG, logMessage);
+            }
+
+            @Override
+            public void OnInitFail(String errorMsg) {
+                // Called with error messages when the initialize is failed.
+                logMessage = "InitCrossPromotion OnInitFail" +
+                        "\nerrorMessage : " + errorMsg ;
+                Log.d(LOG_TAG, logMessage);
+
+            }
+        };
+        return listener;
+    }
+
+
+    /**
+     *   Implementation of ShowInterstitial EventListener
+     **/
+    public ShowInterstitialEventListener registerInterstitialEventListener(){
+        ShowInterstitialEventListener listener = new ShowInterstitialEventListener() {
             @Override
             public void OnShowInterstitialSuccess(String adSpaceKey) {
                 // Called when the interstitialAd showing is succeeded.
@@ -138,11 +156,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void OnShowInterstitialFailure(String adSpaceKey, String errorMgs) {
+            public void OnShowInterstitialFailure(String adSpaceKey, String errorMsg) {
                 // Called with error messages when the interstitialAd showing is failed.
                 logMessage = "OnShowInterstitialFailure" +
                         "\nadSpaceKey : " + adSpaceKey +
-                        "\nerrorMessage : " + errorMgs ;
+                        "\nerrorMessage : " + errorMsg ;
                 Log.d(LOG_TAG, logMessage);
             }
 
@@ -158,9 +176,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
+     /**
      *   Implementation of IgawAdSpotListener
      **/
+
 
     public IgawAdSpotListener registerIgawAdSpotListener(){
         IgawAdSpotListener listener = new IgawAdSpotListener() {
