@@ -14,6 +14,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BridgeActivity"></activity>
+        <activity android:name=".AdvertiserActivity"></activity>
+        <activity android:name=".PublisherOfferwallActivity"></activity>
+        <activity android:name=".PublisherInterstitialActivity"></activity>
 
         <!-- LineCrossPromotion Requires Appkey, HashKey Setting -->
         <meta-data android:name="igaworks_app_key" android:value="INPUT_YOUR_APP_KEY"/>

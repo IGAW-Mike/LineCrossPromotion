@@ -4,13 +4,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +23,7 @@ import java.net.URL;
 
 /**
  * Created by MikeHan on 2016-04-16.
+ *
  */
 public class LoginActivity extends Activity {
 
@@ -36,35 +34,19 @@ public class LoginActivity extends Activity {
  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.login_layout);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
 
         makeUiComponent();
 
-        
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getEncryptedLineUserKey();
-
             }
         });
-
-        Handler handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                Bundle bundle = msg.getData();
-                String userKey = bundle.getString("userKey");
-                int resultCode = bundle.getInt("resultCode");
-
-
-            }
-        };
-
-
 
  }
 
@@ -121,20 +103,19 @@ public class LoginActivity extends Activity {
                         int resultCode = (int) responseJSON.get("resultCode");
                         String encryptedUserKey = (String) responseJSON.get("resultMessage");
 
-                        Log.i(LOG_TAG, "DATA response = " + resultCode);
-
                         if(resultCode == 0){
-//                            Toast.makeText(LoginActivity.this, "Login Succeed :: " + encryptedUserKey, Toast.LENGTH_SHORT).show();
-
                             Intent intent = new Intent(LoginActivity.this, BridgeActivity.class);
-                            intent.putExtra("UserKey", encryptedUserKey);
-                            intent.putExtra("AppId", appId);
+                            intent.putExtra("appId", appId);
+                            intent.putExtra("userKey", plainUserKey);
+                            intent.putExtra("encryptedUserKey", encryptedUserKey);
 
                             startActivity(intent);
+                        }else{
+                            Log.d(LOG_TAG, "ERROR CODE : " + resultCode);
                         }
 
                     }else{
-//                        Toast.makeText(LoginActivity.this, "Fail to get encrypted Line user key", Toast.LENGTH_SHORT).show();
+                        Log.d(LOG_TAG, "HTTP ERROR CODE : " + responseCode);
                     }
 
                 } catch (MalformedURLException e) {
@@ -148,20 +129,7 @@ public class LoginActivity extends Activity {
 
             }
         }).start();
-
-
-        /*
-        * curl -X POST -H "Content-Type: application/json"
-        * -H "X-Linegame-AppId: TEST_CP_TANTAN"
-        * -d         * '{"userKey":"1T4qgG1tAGzky9Gb/pKkFdw==", "appId":"TEST_CP_TANTAN"}'
-        * "http://game-api-staging.line-apps.com/achievement/v3.0/mock/encryption"
-        *
-        *
-        * */
     }
-
-
-
 
     public void makeUiComponent() {
         loginBtn = (Button) findViewById(R.id.loginBtn);
