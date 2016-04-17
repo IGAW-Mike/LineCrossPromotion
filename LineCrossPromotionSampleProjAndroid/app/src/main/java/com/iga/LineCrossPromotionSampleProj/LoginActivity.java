@@ -3,6 +3,8 @@ package com.iga.LineCrossPromotionSampleProj;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +32,7 @@ import java.net.URL;
 public class LoginActivity extends Activity {
 
     private Button loginBtn;
-    private EditText lineAppId, lineUserKey;
+    private EditText lineAppId, lineAppSecret, lineUserKey;
     private final String LOG_TAG = "LINE_BVT";
     private final String GET_ENCRYPTED_USER_KEY = "http://game-api-staging.line-apps.com/achievement/v3.0/mock/encryption";
  @Override
@@ -107,11 +109,13 @@ public class LoginActivity extends Activity {
 
                         if(resultCode == 0){
                             Intent intent = new Intent(LoginActivity.this, BridgeActivity.class);
-                            intent.putExtra("appId", appId);
-                            intent.putExtra("userKey", plainUserKey);
-                            intent.putExtra("encryptedUserKey", encryptedUserKey);
+                            intent.putExtra("AppId", appId);
+                            intent.putExtra("UserKey", plainUserKey);
+                            intent.putExtra("EncryptedUserKey", encryptedUserKey);
 
                             startActivity(intent);
+
+                            finish();
                         }else{
                             Log.d(LOG_TAG, "ERROR CODE : " + resultCode);
                         }
@@ -149,9 +153,25 @@ public class LoginActivity extends Activity {
 
 
     public void makeUiComponent() {
-        loginBtn = (Button) findViewById(R.id.loginBtn);
-        lineAppId = (EditText) findViewById(R.id.lineAppId);
-        lineUserKey = (EditText) findViewById(R.id.lineUserKey);
+
+        try {
+            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+
+            String appId = bundle.getString("line_bvt_appid");
+            String appSecret = bundle.getString("line_bvt_appsecret");
+
+            loginBtn = (Button) findViewById(R.id.loginBtn);
+            lineAppId = (EditText) findViewById(R.id.lineAppId);
+            lineAppSecret = (EditText)findViewById(R.id.lineAppSecret);
+            lineUserKey = (EditText) findViewById(R.id.lineUserKey);
+
+            lineAppId.setText(appId);
+            lineAppSecret.setText(appSecret);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -26,9 +26,9 @@ public class BridgeActivity extends Activity {
         setContentView(R.layout.bridge_layout);
 
         Bundle bundle = getIntent().getExtras();
-        appId = bundle.getString("appId");
-        userKey = bundle.getString("userKey");
-        encryptedUserKey = bundle.getString("encryptedUserKey");
+        appId = bundle.getString("AppId");
+        userKey = bundle.getString("UserKey");
+        encryptedUserKey = bundle.getString("EncryptedUserKey");
 
         makeUiComponents();
 

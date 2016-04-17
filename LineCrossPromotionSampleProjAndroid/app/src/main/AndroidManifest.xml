@@ -24,6 +24,9 @@
         <meta-data android:name="igaworks_hash_key" android:value="INPUT_YOUR_HASH_KEY"/>
         <meta-data android:name="igaworks_server_type" android:value="server"/>
 
+        <meta-data android:name="line_bvt_appid" android:value="TEST_CP_TANTAN"/>
+        <meta-data android:name="line_bvt_appsecret" android:value="appsecret"/>
+
         <!-- LineCrossPromotion Requires Google Install Receiver Setting -->
         <receiver android:name="com.igaworks.IgawReceiver" android:exported="true">
             <intent-filter>

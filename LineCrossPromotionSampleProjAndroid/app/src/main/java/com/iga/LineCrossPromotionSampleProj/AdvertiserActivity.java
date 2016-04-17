@@ -4,16 +4,20 @@ import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.line.crosspromotion.LineCrossPromotion;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,9 +34,10 @@ import java.net.URL;
  */
 public class AdvertiserActivity extends Activity {
 
-    private Button signInBtn, signUpBtn;
+    private Button signInBtn, signUpBtn, sendAchievementBtn;
+    private EditText actionIdText;
 
-    private String appId, appSecret, actionId, userKey;
+    private String userKey;
     private String LOG_TAG = "LINE_BVT";
     private final String ENCREMENT_URL_FORMAT = "http://10.113.191.80/achievement/v3.0/actions/{actionId}/increment";
 
@@ -45,7 +50,6 @@ public class AdvertiserActivity extends Activity {
         makeUiComponents();
 
         Bundle bundle = getIntent().getExtras();
-        appId = bundle.getString("AppId");
         userKey = bundle.getString("UserKey");
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +65,13 @@ public class AdvertiserActivity extends Activity {
             public void onClick(View v) {
                 LineCrossPromotion.unlock(LineCrossPromotion.Event.SIGN_UP);
                 Toast.makeText(AdvertiserActivity.this, "Unlock Call :: Sign Up!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sendAchievementBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendAchievementId(actionIdText.getText().toString());
             }
         });
 
@@ -85,6 +96,8 @@ public class AdvertiserActivity extends Activity {
     private void makeUiComponents() {
         signInBtn = (Button)findViewById(R.id.signInBtnOnAdvertiser);
         signUpBtn = (Button)findViewById(R.id.signUpBtnOnAdvertiser);
+        sendAchievementBtn = (Button)findViewById(R.id.sendAchievementBtn);
+        actionIdText = (EditText)findViewById(R.id.achievementActionId);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
@@ -104,7 +117,7 @@ public class AdvertiserActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void makeEncrementCall(String lineActionId) {
+    private void sendAchievementId(final String lineActionId) {
 
         new Thread(new Runnable() {
             @Override
@@ -116,9 +129,16 @@ public class AdvertiserActivity extends Activity {
                 ByteArrayOutputStream byteArrayOutputStream;
 
                 String response = "";
-                String ENCREMENT_URL = ENCREMENT_URL_FORMAT.replace("{actionId}", actionId);
+                String ENCREMENT_URL = ENCREMENT_URL_FORMAT.replace("{actionId}", lineActionId);
 
                 try {
+
+                    ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+                    Bundle bundle = ai.metaData;
+
+                    String appId = bundle.getString("line_bvt_appid");
+                    String appSecret = bundle.getString("line_bvt_appsecret");
+
                     URL url = new URL(ENCREMENT_URL);
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setConnectTimeout(2000);
@@ -152,14 +172,10 @@ public class AdvertiserActivity extends Activity {
                         response = new String(byteData);
 
                         JSONObject responseJSON = new JSONObject(response);
-                        int resultCode = (int) responseJSON.get("resultCode");
-                        String encryptedUserKey = (String) responseJSON.get("resultMessage");
+                        JSONArray responseArray = responseJSON.getJSONArray("achievements");
 
-                        if(resultCode == 0){
+                        //JSON PARSER 구현 필요
 
-                        }else{
-                            Log.d(LOG_TAG, "ERROR CODE : " + resultCode);
-                        }
 
                     }else{
                         Log.d(LOG_TAG, "HTTP ERROR CODE : " + responseCode);
@@ -170,6 +186,8 @@ public class AdvertiserActivity extends Activity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                 }
 
