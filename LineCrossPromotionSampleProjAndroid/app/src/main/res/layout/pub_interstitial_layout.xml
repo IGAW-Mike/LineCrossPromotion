@@ -16,7 +16,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CP : LOGIN"
+        android:text="AD_SPACE : LOGIN"
         android:id="@+id/loginBtnOnPubInter"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/textView8"
@@ -30,7 +30,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CP : SHOP_OUT"
+        android:text="AD_SPACE : SHOP_OUT"
         android:id="@+id/shopOutBtnOnPubInter"
         android:layout_below="@+id/loginBtnOnPubInter"
         android:layout_alignParentLeft="true"
@@ -44,7 +44,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CP : APP_END"
+        android:text="AD_SPACE : APP_END"
         android:id="@+id/appEndBtnOnPubInter"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/shopOutBtnOnPubInter"
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Custom AdSpace"
+        android:text="CUSTOM AD_SPACE "
         android:id="@+id/textView9"
         android:layout_below="@+id/appEndBtnOnPubInter"
         android:layout_alignParentLeft="true"

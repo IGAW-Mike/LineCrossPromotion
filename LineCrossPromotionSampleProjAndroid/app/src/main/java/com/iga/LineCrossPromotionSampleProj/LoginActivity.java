@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.line.crosspromotion.LineCrossPromotion;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -130,6 +132,21 @@ public class LoginActivity extends Activity {
             }
         }).start();
     }
+
+    // CALL startSession api
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LineCrossPromotion.startSession(LoginActivity.this);
+    }
+
+    // CALL endSession api
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LineCrossPromotion.endSession();
+    }
+
 
     public void makeUiComponent() {
         loginBtn = (Button) findViewById(R.id.loginBtn);

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.line.crosspromotion.LineCrossPromotion;
+
 /**
  * Created by MikeHan on 2016-04-16.
  */
@@ -52,6 +54,21 @@ public class BridgeActivity extends Activity {
         });
     }
 
+    // CALL startSession api
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LineCrossPromotion.startSession(BridgeActivity.this);
+    }
+
+    // CALL endSession api
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LineCrossPromotion.endSession();
+    }
+
+
     private void makeUiComponents() {
 
         appIdTv = (TextView)findViewById(R.id.lineAppIdOnBridge);
@@ -74,6 +91,9 @@ public class BridgeActivity extends Activity {
     private void openActivity(Class name){
 
         Intent intent = new Intent(BridgeActivity.this, name);
+        intent.putExtra("AppId", appId);
+        intent.putExtra("UserKey", userKey);
+        intent.putExtra("EncryptedUserKey", encryptedUserKey);
         startActivity(intent);
 
     }

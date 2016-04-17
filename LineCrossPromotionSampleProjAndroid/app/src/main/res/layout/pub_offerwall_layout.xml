@@ -16,7 +16,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CP : LOGIN"
+        android:text="LOG IN"
         android:id="@+id/loginBtnOnPubOfferwall"
         android:layout_below="@+id/textView11"
         android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CP : GET OFFERWALL AD"
+        android:text="GET OFFERWALL AD"
         android:id="@+id/getOfferwallBtnOnPubOfferwall"
         android:layout_marginTop="20dp"
         android:textColor="@android:color/white"
@@ -44,7 +44,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CP : SHOW OFFERWALL AD"
+        android:text="SHOW OFFERWALL AD"
         android:id="@+id/showOfferwallBtnOnPubOfferwall"
         android:textColor="@android:color/white"
         android:background="#169bd5"

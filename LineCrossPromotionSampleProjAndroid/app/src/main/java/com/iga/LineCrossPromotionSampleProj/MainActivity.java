@@ -15,7 +15,7 @@ import com.line.crosspromotion.LineCrossPromotion;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String LOG_TAG = "LINE_CROSS";
+    private String LOG_TAG = "LINE_BVT";
     Button showInterstitialBtn, getOfferwallAdInfoBtn, showOfferwallBtn, signUpBtn, signInBtn;
     String logMessage = "";
 
