@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iga.LineCrossPromotionSampleProj">
+    package="com.iga.LineCrossPromotionSampleProjPub">
 
     <application
         android:allowBackup="true"
@@ -8,16 +8,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-        <activity android:name="com.iga.LineCrossPromotionSampleProj.LoginActivity">
+
+        <activity android:name="com.iga.LineCrossPromotionSampleProjPub.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BridgeActivity"></activity>
-        <activity android:name=".AdvertiserActivity"></activity>
-        <activity android:name=".PublisherOfferwallActivity"></activity>
-        <activity android:name=".PublisherInterstitialActivity"></activity>
+
+        <activity android:name="com.iga.LineCrossPromotionSampleProjPub.BridgeActivity"></activity>
+        <activity android:name="com.iga.LineCrossPromotionSampleProjPub.AdvertiserActivity"></activity>
+        <activity android:name="com.iga.LineCrossPromotionSampleProjPub.PublisherOfferwallActivity"></activity>
+        <activity android:name="com.iga.LineCrossPromotionSampleProjPub.PublisherInterstitialActivity"></activity>
 
         <!-- LineCrossPromotion Requires Appkey, HashKey Setting -->
         <meta-data android:name="igaworks_app_key" android:value="INPUT_YOUR_APP_KEY"/>

@@ -1,4 +1,4 @@
-package com.iga.LineCrossPromotionSampleProj;
+package com.iga.LineCrossPromotionSampleProjPub;
 
 import org.junit.Test;
 
