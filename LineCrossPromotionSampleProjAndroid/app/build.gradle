@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.iga.linecrosspromotionsampleprojandroid"
+        applicationId "com.iga.linecrosspromotionsampleprojandroidpub"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
