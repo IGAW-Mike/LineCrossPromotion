@@ -22,12 +22,12 @@
         <activity android:name="com.iga.LineCrossPromotionSampleProjPub.PublisherInterstitialActivity"></activity>
 
         <!-- LineCrossPromotion Requires Appkey, HashKey Setting -->
-        <meta-data android:name="igaworks_app_key" android:value="INPUT_YOUR_APP_KEY"/>
-        <meta-data android:name="igaworks_hash_key" android:value="INPUT_YOUR_HASH_KEY"/>
+        <meta-data android:name="igaworks_app_key" android:value="537585080"/>
+        <meta-data android:name="igaworks_hash_key" android:value="808be2fed29d49c6"/>
         <meta-data android:name="igaworks_server_type" android:value="server"/>
 
         <meta-data android:name="line_bvt_appid" android:value="TEST_CP_TANTAN"/>
-        <meta-data android:name="line_bvt_appsecret" android:value="appsecret"/>
+        <meta-data android:name="line_bvt_appsecret" android:value="aa745a0cb9874ccc921fbc66c734b509"/>
 
         <!-- LineCrossPromotion Requires Google Install Receiver Setting -->
         <receiver android:name="com.igaworks.IgawReceiver" android:exported="true">
