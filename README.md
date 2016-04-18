@@ -1,9 +1,8 @@
-## LineCrossPromotionSampleProj
+## LineCrossPromotion
 
-### Android Sample Project
+1. Android, iOS native documents.
+2. Android Sample Project.
+3. iOS Sample Project(comming soon)
 
-### iOS Sample Project
 
-### Unity-Android Sample Project
- 
-### Unity-iOS Sample Project
+
