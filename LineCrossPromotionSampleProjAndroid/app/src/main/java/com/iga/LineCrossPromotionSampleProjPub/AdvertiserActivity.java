@@ -31,8 +31,7 @@ import java.net.MalformedURLException;
  */
 public class AdvertiserActivity extends Activity {
 
-    private Button signInBtn, signUpBtn, sendAchievementBtn;
-    private EditText actionIdText;
+    private Button signInBtn, signUpBtn;
 
     private String userKey;
     private String LOG_TAG = "LINE_BVT";
@@ -65,12 +64,7 @@ public class AdvertiserActivity extends Activity {
             }
         });
 
-        sendAchievementBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendAchievementId(actionIdText.getText().toString());
-            }
-        });
+
 
     }
 
@@ -93,8 +87,6 @@ public class AdvertiserActivity extends Activity {
     private void makeUiComponents() {
         signInBtn = (Button)findViewById(R.id.signInBtnOnAdvertiser);
         signUpBtn = (Button)findViewById(R.id.signUpBtnOnAdvertiser);
-        sendAchievementBtn = (Button)findViewById(R.id.sendAchievementBtn);
-        actionIdText = (EditText)findViewById(R.id.achievementActionId);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(false);

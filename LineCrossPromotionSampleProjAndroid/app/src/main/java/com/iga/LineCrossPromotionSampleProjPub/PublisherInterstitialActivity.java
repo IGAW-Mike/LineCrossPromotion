@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.igaworks.adbrix.line.InitInterstitialEventListener;
-import com.igaworks.adbrix.line.ShowInterstitialEventListener;
+import com.igaworks.adbrix.line.InitInterstitialAdEventListener;
+import com.igaworks.adbrix.line.ShowInterstitialAdEventListener;
 import com.line.crosspromotion.LineCrossPromotion;
 
 /**
@@ -44,7 +44,7 @@ public class PublisherInterstitialActivity extends Activity {
 
         LineCrossPromotion.setUserId(encryptedUserKey);
 
-        LineCrossPromotion.initInterstitialAd(PublisherInterstitialActivity.this, new InitInterstitialEventListener() {
+        LineCrossPromotion.initInterstitialAd(PublisherInterstitialActivity.this, new InitInterstitialAdEventListener() {
             @Override
             public void OnInitSuccess() {
                 Toast.makeText(PublisherInterstitialActivity.this,
@@ -108,9 +108,9 @@ public class PublisherInterstitialActivity extends Activity {
         });
     }
 
-    private ShowInterstitialEventListener registerListener(){
+    private ShowInterstitialAdEventListener registerListener(){
 
-        ShowInterstitialEventListener listener = new ShowInterstitialEventListener() {
+        ShowInterstitialAdEventListener listener = new ShowInterstitialAdEventListener() {
             @Override
             public void OnShowInterstitialSuccess(String adspacekey) {
                 Log.d(LOG_TAG, "OnShowInterstitialSuccess\nadspacekey : " + adspacekey);

@@ -7,8 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.igaworks.adbrix.line.InitInterstitialEventListener;
-import com.igaworks.adbrix.line.ShowInterstitialEventListener;
+import com.igaworks.adbrix.line.InitInterstitialAdEventListener;
+import com.igaworks.adbrix.line.ShowInterstitialAdEventListener;
 import com.igaworks.adpopcorn.v2.core.AdSpotError;
 import com.igaworks.adpopcorn.v2.core.IgawAdSpotListener;
 import com.line.crosspromotion.LineCrossPromotion;
@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      *   Implementation of InitInterstitial EventListener
      **/
-    public InitInterstitialEventListener registerInitInterstitialAdEventListener(){
-        InitInterstitialEventListener listener = new InitInterstitialEventListener() {
+    public InitInterstitialAdEventListener registerInitInterstitialAdEventListener(){
+        InitInterstitialAdEventListener listener = new InitInterstitialAdEventListener() {
             @Override
             public void OnInitSuccess() {
                 // Called when the initialize is succeeded.
@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      *   Implementation of ShowInterstitial EventListener
      **/
-    public ShowInterstitialEventListener registerInterstitialEventListener(){
-        ShowInterstitialEventListener listener = new ShowInterstitialEventListener() {
+    public ShowInterstitialAdEventListener registerInterstitialEventListener(){
+        ShowInterstitialAdEventListener listener = new ShowInterstitialAdEventListener() {
             @Override
             public void OnShowInterstitialSuccess(String adSpaceKey) {
                 // Called when the interstitialAd showing is succeeded.
